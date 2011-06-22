@@ -16,6 +16,7 @@
 			queue, allTilesInfo, imageInfo, outputFormat;
 @synthesize rigidTiles;
 @synthesize contentScaleFactor;
+@synthesize tileRowCount,tileColCount, progressRow, progressCol;
 
 #pragma mark Public Methods
 
@@ -30,6 +31,7 @@
 		self.outputSuffix = @"";
 		self.keepAllTiles = NO;
 		self.rigidTiles = NO;
+        self.contentScaleFactor = 1.0f;
 	}
 	
 	return self;
@@ -112,6 +114,9 @@
 	// Change coordinates & size of all tiles for contentScaleFactor
 	if (self.contentScaleFactor != 1.0f)
 	{
+        if (self.contentScaleFactor == 0.0f) {
+            self.contentScaleFactor = 1.0f;
+        }
 		// Create new array, that will replace old self.allTilesInfo
 		NSMutableArray *newTilesInfoArray = [NSMutableArray arrayWithCapacity: [self.allTilesInfo count]];
 		
@@ -119,13 +124,13 @@
 		{
 			// Get Tile Rect
 			NSRect rect = NSRectFromString([tileDict objectForKey: @"Rect"]);
-			
+
 			// Divide it by contentScaleFactor
 			rect.origin.x /= self.contentScaleFactor;
 			rect.origin.y /= self.contentScaleFactor;
 			rect.size.width /= self.contentScaleFactor;
 			rect.size.height /= self.contentScaleFactor;
-			
+			NSLog(@"Rect: %@", NSStringFromRect(rect));			
 			// Create new tile info Dict with changed rect
 			NSDictionary *newTileDict = [NSDictionary dictionaryWithObjectsAndKeys:
 										  [tileDict objectForKey:@"Name"], @"Name",

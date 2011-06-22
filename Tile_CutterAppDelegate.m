@@ -24,7 +24,7 @@
 
 @implementation Tile_CutterAppDelegate
 
-@synthesize window, tileCutterView, widthTextField, heightTextField, rowBar, columnBar, progressWindow, progressLabel, baseFilename;
+@synthesize window, tileCutterView, widthTextField, heightTextField, rowBar, columnBar, progressWindow, progressLabel, baseFilename, tileCore;
 
 - (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename
 {
